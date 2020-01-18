@@ -12,6 +12,7 @@ import com.bikram.bean.MFABean;
 import com.bikram.dao.MFADao;
 import com.bikram.dao.MFADaoImpl;
 import com.bikram.util.MFAUtil;
+import com.bikram.util.Response;
 import com.bikram.util.S3BucketUtil;
 @Repository
 @Component
@@ -84,7 +85,7 @@ public class MFAServiceImpl implements MFAService,Runnable{
 		processMFA(email, companyName, secretKey, qrPath, lastCode,fileName);
 		
 	}
-	public String validateMFA(String email,String code) {
+	public Response validateMFA(String email,String code) {
 		return dao.validateMFA(email, code);
 	}
 }

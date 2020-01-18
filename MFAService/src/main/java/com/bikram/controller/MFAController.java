@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bikram.bean.MFARequestBean;
 import com.bikram.bean.ValidateMFARequest;
 import com.bikram.service.MFAService;
+import com.bikram.util.Response;
 import com.bikram.util.S3BucketUtil;
 
 
@@ -69,9 +70,9 @@ public class MFAController {
 		 return null;
 	}
 	
-	@RequestMapping(value = "/validateMFACode", method = RequestMethod.POST, produces = "text/plain")
+	@RequestMapping(value = "/validateMFACode", method = RequestMethod.POST)
 	@ResponseBody
-	public String validateMFACode(@RequestBody ValidateMFARequest validateMFARequest,HttpServletRequest request) {
+	public Response validateMFACode(@RequestBody ValidateMFARequest validateMFARequest,HttpServletRequest request) {
 		
 		return mFAServiceImpl.validateMFA(validateMFARequest.getEmail(), validateMFARequest.getCode());
 	}

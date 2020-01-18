@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bikram.bean.MFABean;
 import com.bikram.util.HibernateUtils;
+import com.bikram.util.Response;
+import com.bikram.util.StatusCode;
 
 @Repository
 @Component
@@ -59,14 +61,14 @@ public class MFADaoImpl implements MFADao {
 		return list;
 	}
 	
-	public String validateMFA(String email,String code) {
+	public Response validateMFA(String email,String code) {
 		Session session=HibernateUtils.getNewHibernateSession();
 		Criteria criteria=session.createCriteria(MFABean.class);
 		criteria.add(Restrictions.and(Restrictions.eq("email", email),Restrictions.eq("code", code)));
 		if(criteria.list().size()>0)
-			return "SUCCESS";
+			return new Response(StatusCode.SUCCESS);
 		else
-			return "FAIL";
+			return new Response(StatusCode.FAIL);
 	}
 
 }
